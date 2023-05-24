@@ -1,0 +1,12 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    float num;
+    cout << "Digite um valor: ";
+    cin >> num;
+    cout << "12% de "<< num <<" = "
+         << 0.12 * num;
+    return 0;
+}
