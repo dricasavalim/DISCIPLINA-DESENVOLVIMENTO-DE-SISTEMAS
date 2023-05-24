@@ -1,0 +1,36 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int num, aux;
+
+    cout << "Tabuada do numero: ";
+    cin >> num;
+
+    for(aux=1 ; aux<=10 ; aux++)
+        cout<<num<<" * "<<aux<<" = " << num*aux <<endl;
+
+    return 0;
+}
+Tabuada em C++ com WHILE e DO WHILE
+Também é possível fazer o mesmo com o looping WHILE, veja:
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int num, aux=1;
+
+    cout << "Tabuada do numero: ";
+    cin >> num;
+
+    while(aux<=10){
+        cout<<num<<" * "<<aux<<" = " << num*aux <<endl;
+        aux++;
+    }
+
+    return 0;
+}
