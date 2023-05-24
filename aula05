@@ -1,0 +1,13 @@
+a = input('Primeiro valor: ')
+b = input('segundo valor: ')
+c = input('Terceiro valor: ')
+
+delta = b**2 - 4*a*c
+print 'Delta: ', delta
+
+if delta > 0:
+    x1 = (-b + delta**0.5) / 2.0 * a
+    x2 = (-b - delta**0.5) / 2.0 * a
+    print x1, x2
+else:
+    print 'Nao pode ser calculado'
