@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    float percentage, num;
+    cout << "Valor da porcentagem: ";
+    cin >> percentage;
+    percentage = percentage/100;
+
+    cout << "Segundo valor: ";
+    cin >> num;
+
+    cout << percentage <<"% de "
+         << num << " = "<< percentage*num;
+    return 0;
+}
