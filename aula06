@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <math.h>
+main()
+{
+ int x,numero=0, maior=0, menor=0;
+ // Tem que inicializar as variaveis maior e menor com zero
+ // Inicializa a variavel numero com zero para entrar no loop while
+ while (numero >= 0)
+ {
+ printf("Informe um valor positivo: ");
+ scanf("%d", &numero);
+ if (numero > 0)
+ // se o numero for positivo
+ if (numero > maior)
+ // se o numero informado for maior que o conteudo atual
+ // da variavel maior, esta variavel recebe o numero informado
+ maior = numero;
+ else
+ // senão a variavel menor recebe o numero informado
+ menor = numero;
+ }
+ printf("O maior eh %d e o menor eh %d\n", maior, menor);
+ system("pause");
+ return 0;
+}
+
