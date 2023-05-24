@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<stdlib.h>
+/*Autor: Ruben Alves do Nascimento
+  Contato: rubenanapu@hotmail.com      
+*/
+main(){
+           int a,b=-1,vetor[100];
+           do{            //Repetição para coletar os numeros
+           b++;                          //incremento, é o mesmo que b=b+1          
+           printf("\nDigite o %i%c numero ou 0 <zero> para SAIR: ",b+1,167);
+           scanf("%i",&vetor[b]);        //Armazena o numero na posição (linha) b do vetor
+           system("cls");                //Limpa a tela
+           }while((b<100)&&(vetor[b]!=0));      //Repete até 100 vezes ou ate o valor 0 ser pressionado
+          
+           printf("Os %i numeros digitados foram:\n",b);
+           for(a=0;a<b;a++)printf("%i%c numero: %i\n",a+1,167,vetor[a]); //Imprimindo os valores digitados
+      
+system("pause");
+}
+//Fim do programa
