@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <math.h>
+#include <string.h>
+main()
+{
+ int liminferior, limsuperior,x;
+ float soma = 0;
+ printf("Informe o valor do limite inferior: ");
+ scanf("%d", &liminferior);
+ printf("\nInforme o valor do limite superior: ");
+ scanf("%d", &limsuperior);
+ // verifica se o limite inferior digitado é par
+ if (liminferior % 2 == 0)
+ // se for par, soma 2 para começar com o próximo numero par
+ liminferior = liminferior + 2;
+ else
+ // se nao for par, aumenta 1 para ele ficar par
+ liminferior = liminferior + 1;
+ printf("\n\n");
+ // no limite superior subtrair 1 para ficar sempre com um numero
+ // menor que o limite superior digitado.
+ for (x=liminferior; x <= limsuperior -1; x=x+2)
+ {
+ printf("%d\t",x);
+ soma = soma + x;
+ }
+ printf("\n\n");
+ printf("Somatorio: %3.0f",soma);
+ printf("\n\n");
+ system("pause");
+ return 0;
+}
