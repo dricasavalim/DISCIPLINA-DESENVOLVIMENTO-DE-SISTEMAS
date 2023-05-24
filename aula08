@@ -1,0 +1,14 @@
+#include <iostream.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+int main()
+{
+ float numero;
+ printf("Informe um numero: ");
+ scanf("%f",&numero);
+ if (numero > 20)
+ printf("A metade desse numero e %3.2f", numero/2);
+ system("PAUSE");
+ return 0;
+}
