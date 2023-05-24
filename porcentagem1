@@ -1,0 +1,8 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    cout << "12% de 2112= " << 0.12*2112;
+    return 0;
+}
