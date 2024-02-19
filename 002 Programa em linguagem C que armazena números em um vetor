@@ -1,8 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-/*Autor: Ruben Alves do Nascimento
-  Contato: rubenanapu@hotmail.com      
-*/
+
 main(){
            int a,b=-1,vetor[100];
            do{            //Repetição para coletar os numeros
