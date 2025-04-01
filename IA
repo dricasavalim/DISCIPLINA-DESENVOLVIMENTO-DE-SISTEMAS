@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int eh_vogal(char letra) {
+    letra = tolower(letra);
+    return (letra == 'a' || letra == 'e' || letra == 'i' || letra == 'o' || letra == 'u');
+}
+
+int main() {
+    char frases[4][100]; // Vetor para armazenar as frases
+    char letra;
+
+    // Perguntar 4 frases
+    printf("Vamos brincar! Digite 4 frases:\n");
+    for (int i = 0; i < 4; i++) {
+        printf("Frase %d: ", i + 1);
+        fgets(frases[i], sizeof(frases[i]), stdin);
+    }
+
+    // Pedir uma letra
+    printf("\nAgora, digite uma letra: ");
+    scanf(" %c", &letra);
+
+    // Verificar se é vogal ou consoante
+    if (eh_vogal(letra)) {
+        printf("Parabéns! Você acertou, '%c' é uma vogal!\n", letra);
+    } else {
+        printf("Que pena! '%c' é uma consoante, tente novamente!\n", letra);
+    }
+
+    return 0;
+}
