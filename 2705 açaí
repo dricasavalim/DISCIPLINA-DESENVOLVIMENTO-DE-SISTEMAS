@@ -86,3 +86,109 @@ int main() {
 
     return 0;
 }
+
+
+
+
+_______________________________________
+#include <stdio.h>
+
+int main() {
+    int embalagem, calda, cobertura, fruta, adicional;
+    const char *embalagemStr, *caldaStr, *coberturaStr, *frutaStr, *adicionalStr;
+
+    printf("=== Bem-vindo à Açaiteria ===\n");
+
+    // Escolha da embalagem
+    printf("\nEscolha o tipo de embalagem:\n");
+    printf("1 - Taça\n");
+    printf("2 - Copo\n");
+    printf("3 - Barca\n");
+    printf("Opção: ");
+    scanf("%d", &embalagem);
+
+    switch(embalagem) {
+        case 1: embalagemStr = "Taça"; break;
+        case 2: embalagemStr = "Copo"; break;
+        case 3: embalagemStr = "Barca"; break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+    printf("Você escolheu: %s\n", embalagemStr);
+
+    // Escolha da calda
+    printf("\nEscolha a calda:\n");
+    printf("1 - Chocolate\n");
+    printf("2 - Leite Condensado\n");
+    printf("3 - Morango\n");
+    printf("Opção: ");
+    scanf("%d", &calda);
+
+    switch(calda) {
+        case 1: caldaStr = "Chocolate"; break;
+        case 2: caldaStr = "Leite Condensado"; break;
+        case 3: caldaStr = "Morango"; break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+    printf("Calda escolhida: %s\n", caldaStr);
+
+    // Escolha da cobertura
+    printf("\nEscolha a cobertura:\n");
+    printf("1 - Granulado\n");
+    printf("2 - Leite em pó\n");
+    printf("3 - Castanha\n");
+    printf("Opção: ");
+    scanf("%d", &cobertura);
+
+    switch(cobertura) {
+        case 1: coberturaStr = "Granulado"; break;
+        case 2: coberturaStr = "Leite em pó"; break;
+        case 3: coberturaStr = "Castanha"; break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+    printf("Cobertura escolhida: %s\n", coberturaStr);
+
+    // Escolha de fruta
+    printf("\nEscolha uma fruta:\n");
+    printf("1 - Banana\n");
+    printf("2 - Morango\n");
+    printf("3 - Kiwi\n");
+    printf("Opção: ");
+    scanf("%d", &fruta);
+
+    switch(fruta) {
+        case 1: frutaStr = "Banana"; break;
+        case 2: frutaStr = "Morango"; break;
+        case 3: frutaStr = "Kiwi"; break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+    printf("Fruta escolhida: %s\n", frutaStr);
+
+    // Escolha de adicional
+    printf("\nEscolha um adicional:\n");
+    printf("1 - Paçoca\n");
+    printf("2 - Nutella\n");
+    printf("3 - Jujuba\n");
+    printf("Opção: ");
+    scanf("%d", &adicional);
+
+    switch(adicional) {
+        case 1: adicionalStr = "Paçoca"; break;
+        case 2: adicionalStr = "Nutella"; break;
+        case 3: adicionalStr = "Jujuba"; break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+    printf("Adicional escolhido: %s\n", adicionalStr);
+
+    // Resumo do pedido
+    printf("\n=== Pedido Finalizado ===\n");
+    printf("Resumo do seu pedido:\n");
+    printf("Embalagem: %s\n", embalagemStr);
+    printf("Calda: %s\n", caldaStr);
+    printf("Cobertura: %s\n", coberturaStr);
+    printf("Fruta: %s\n", frutaStr);
+    printf("Adicional: %s\n", adicionalStr);
+    printf("Obrigado por comprar conosco!\n");
+
+    return 0;
+}
+
