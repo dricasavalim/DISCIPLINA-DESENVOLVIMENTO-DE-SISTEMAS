@@ -1,0 +1,105 @@
+Claro! Abaixo está um exemplo de código em linguagem C que simula um sistema simples de pedidos para uma **açaiteria**, utilizando `switch-case`. O programa permite ao usuário escolher:
+
+1. **Tipo de embalagem** (taça, copo, barca)
+2. **Calda**
+3. **Cobertura**
+4. **Frutas**
+5. **Adicionais**
+
+```c
+#include <stdio.h>
+
+int main() {
+    int embalagem, calda, cobertura, fruta, adicional;
+
+    printf("=== Bem-vindo à Açaiteria ===\n");
+
+    // Escolha da embalagem
+    printf("\nEscolha o tipo de embalagem:\n");
+    printf("1 - Taça\n");
+    printf("2 - Copo\n");
+    printf("3 - Barca\n");
+    printf("Opção: ");
+    scanf("%d", &embalagem);
+
+    switch(embalagem) {
+        case 1: printf("Você escolheu: Taça\n"); break;
+        case 2: printf("Você escolheu: Copo\n"); break;
+        case 3: printf("Você escolheu: Barca\n"); break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+
+    // Escolha da calda
+    printf("\nEscolha a calda:\n");
+    printf("1 - Chocolate\n");
+    printf("2 - Leite Condensado\n");
+    printf("3 - Morango\n");
+    printf("Opção: ");
+    scanf("%d", &calda);
+
+    switch(calda) {
+        case 1: printf("Calda escolhida: Chocolate\n"); break;
+        case 2: printf("Calda escolhida: Leite Condensado\n"); break;
+        case 3: printf("Calda escolhida: Morango\n"); break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+
+    // Escolha da cobertura
+    printf("\nEscolha a cobertura:\n");
+    printf("1 - Granulado\n");
+    printf("2 - Leite em pó\n");
+    printf("3 - Castanha\n");
+    printf("Opção: ");
+    scanf("%d", &cobertura);
+
+    switch(cobertura) {
+        case 1: printf("Cobertura escolhida: Granulado\n"); break;
+        case 2: printf("Cobertura escolhida: Leite em pó\n"); break;
+        case 3: printf("Cobertura escolhida: Castanha\n"); break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+
+    // Escolha de fruta
+    printf("\nEscolha uma fruta:\n");
+    printf("1 - Banana\n");
+    printf("2 - Morango\n");
+    printf("3 - Kiwi\n");
+    printf("Opção: ");
+    scanf("%d", &fruta);
+
+    switch(fruta) {
+        case 1: printf("Fruta escolhida: Banana\n"); break;
+        case 2: printf("Fruta escolhida: Morango\n"); break;
+        case 3: printf("Fruta escolhida: Kiwi\n"); break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+
+    // Escolha de adicional
+    printf("\nEscolha um adicional:\n");
+    printf("1 - Paçoca\n");
+    printf("2 - Nutella\n");
+    printf("3 - Jujuba\n");
+    printf("Opção: ");
+    scanf("%d", &adicional);
+
+    switch(adicional) {
+        case 1: printf("Adicional escolhido: Paçoca\n"); break;
+        case 2: printf("Adicional escolhido: Nutella\n"); break;
+        case 3: printf("Adicional escolhido: Jujuba\n"); break;
+        default: printf("Opção inválida.\n"); return 1;
+    }
+
+    printf("\n=== Pedido Finalizado ===\n");
+    printf("Obrigado por comprar conosco!\n");
+
+    return 0;
+}
+```
+
+### Como usar:
+
+1. Copie o código para um editor C (como Code::Blocks, Dev C++, ou onlinegdb.com).
+2. Compile e execute.
+3. Digite os números conforme as opções do menu.
+
+Se quiser, posso melhorar esse sistema com laços de repetição, validação ou carrinho de compras. Deseja isso?
