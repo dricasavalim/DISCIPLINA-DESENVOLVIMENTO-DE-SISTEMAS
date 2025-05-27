@@ -1,12 +1,4 @@
-Claro! Abaixo está um exemplo de código em linguagem C que simula um sistema simples de pedidos para uma **açaiteria**, utilizando `switch-case`. O programa permite ao usuário escolher:
 
-1. **Tipo de embalagem** (taça, copo, barca)
-2. **Calda**
-3. **Cobertura**
-4. **Frutas**
-5. **Adicionais**
-
-```c
 #include <stdio.h>
 
 int main() {
@@ -94,12 +86,3 @@ int main() {
 
     return 0;
 }
-```
-
-### Como usar:
-
-1. Copie o código para um editor C (como Code::Blocks, Dev C++, ou onlinegdb.com).
-2. Compile e execute.
-3. Digite os números conforme as opções do menu.
-
-Se quiser, posso melhorar esse sistema com laços de repetição, validação ou carrinho de compras. Deseja isso?
