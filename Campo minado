@@ -1,0 +1,231 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <ctype.h>
+
+#define MAX_L 24
+#define MAX_C 24
+
+typedef enum { HIDDEN, REVEALED, FLAGGED } CellState;
+
+typedef struct {
+    int mine;       // 1 se tem mina
+    int adj;        // número de minas adjacentes
+    CellState state;
+} Cell;
+
+void clear_input_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) ;
+}
+
+void initialize_board(Cell board[][MAX_C], int L, int C) {
+    for (int i = 0; i < L; ++i)
+        for (int j = 0; j < C; ++j) {
+            board[i][j].mine = 0;
+            board[i][j].adj = 0;
+            board[i][j].state = HIDDEN;
+        }
+}
+
+void place_mines(Cell board[][MAX_C], int L, int C, int mines) {
+    int placed = 0;
+    while (placed < mines) {
+        int r = rand() % L;
+        int c = rand() % C;
+        if (!board[r][c].mine) {
+            board[r][c].mine = 1;
+            placed++;
+        }
+    }
+}
+
+void compute_adjacents(Cell board[][MAX_C], int L, int C) {
+    int dr[] = {-1,-1,-1,0,0,1,1,1};
+    int dc[] = {-1,0,1,-1,1,-1,0,1};
+    for (int i = 0; i < L; ++i) {
+        for (int j = 0; j < C; ++j) {
+            if (board[i][j].mine) {
+                board[i][j].adj = -1;
+                continue;
+            }
+            int count = 0;
+            for (int k = 0; k < 8; ++k) {
+                int ni = i + dr[k], nj = j + dc[k];
+                if (ni >= 0 && ni < L && nj >= 0 && nj < C)
+                    if (board[ni][nj].mine) count++;
+            }
+            board[i][j].adj = count;
+        }
+    }
+}
+
+void print_board(Cell board[][MAX_C], int L, int C, int reveal_all) {
+    // Header numérico
+    printf("    ");
+    for (int j = 0; j < C; ++j) {
+        printf("%2d ", j+1);
+    }
+    printf("\n");
+
+    printf("   +");
+    for (int j = 0; j < C; ++j) printf("---");
+    printf("+\n");
+
+    for (int i = 0; i < L; ++i) {
+        printf("%2c |", 'A' + i); // label de linha com letras
+        for (int j = 0; j < C; ++j) {
+            Cell *cel = &board[i][j];
+            if (reveal_all) {
+                if (cel->mine) printf(" * ");
+                else if (cel->adj == 0) printf("   ");
+                else printf("%2d ", cel->adj);
+            } else {
+                if (cel->state == HIDDEN) printf(" . ");
+                else if (cel->state == FLAGGED) printf(" F ");
+                else { // revealed
+                    if (cel->mine) printf(" * ");
+                    else if (cel->adj == 0) printf("   ");
+                    else printf("%2d ", cel->adj);
+                }
+            }
+            printf("|");
+        }
+        printf("\n");
+    }
+
+    printf("   +");
+    for (int j = 0; j < C; ++j) printf("---");
+    printf("+\n");
+}
+
+// Flood-fill revelando células vazias (adj==0) e suas bordas
+void reveal_recursive(Cell board[][MAX_C], int L, int C, int r, int c) {
+    if (r < 0 || r >= L || c < 0 || c >= C) return;
+    Cell *cel = &board[r][c];
+    if (cel->state == REVEALED || cel->state == FLAGGED) return;
+    cel->state = REVEALED;
+    if (cel->adj != 0) return; // se tem número, não propaga
+    int dr[] = {-1,-1,-1,0,0,1,1,1};
+    int dc[] = {-1,0,1,-1,1,-1,0,1};
+    for (int k = 0; k < 8; ++k) reveal_recursive(board, L, C, r + dr[k], c + dc[k]);
+}
+
+int reveal_cell(Cell board[][MAX_C], int L, int C, int r, int c) {
+    if (r < 0 || r >= L || c < 0 || c >= C) return 0;
+    Cell *cel = &board[r][c];
+    if (cel->state == REVEALED || cel->state == FLAGGED) return 0;
+    cel->state = REVEALED;
+    if (cel->mine) return -1; // explodiu
+    if (cel->adj == 0) reveal_recursive(board, L, C, r, c);
+    return 1;
+}
+
+int check_win(Cell board[][MAX_C], int L, int C, int mines) {
+    int revealed = 0;
+    for (int i = 0; i < L; ++i)
+        for (int j = 0; j < C; ++j)
+            if (board[i][j].state == REVEALED) revealed++;
+    return (revealed == L*C - mines);
+}
+
+int main() {
+    srand((unsigned) time(NULL));
+
+    int L = 9, C = 9, mines = 10;
+    char choice;
+    printf("=== Campo Minado (terminal) ===\n\n");
+    printf("Deseja escolher dimensoes manualmente? (padrão 9x9 com 10 minas) [s/n]: ");
+    choice = getchar();
+    clear_input_buffer();
+    if (tolower(choice) == 's') {
+        printf("Linhas (max %d): ", MAX_L);
+        if (scanf("%d", &L) != 1) return 0;
+        printf("Colunas (max %d): ", MAX_C);
+        if (scanf("%d", &C) != 1) return 0;
+        printf("Quantidade de minas: ");
+        if (scanf("%d", &mines) != 1) return 0;
+        clear_input_buffer();
+        if (L < 2) L = 2;
+        if (C < 2) C = 2;
+        if (L > MAX_L) L = MAX_L;
+        if (C > MAX_C) C = MAX_C;
+        if (mines < 1) mines = 1;
+        if (mines >= L*C) mines = L*C - 1;
+    }
+
+    Cell board[MAX_L][MAX_C];
+    initialize_board(board, L, C);
+    place_mines(board, L, C, mines);
+    compute_adjacents(board, L, C);
+
+    int game_over = 0;
+    while (!game_over) {
+        print_board(board, L, C, 0);
+        printf("\nComandos:\n");
+        printf(" R linha coluna -> Revelar (ex: R A 3 ou R a 3)\n");
+        printf(" F linha coluna -> Marcar/Desmarcar bandeira\n");
+        printf(" S -> Sair\n");
+        printf("Digite comando: ");
+
+        char cmd;
+        if (scanf(" %c", &cmd) != 1) break;
+        cmd = toupper(cmd);
+
+        if (cmd == 'S') {
+            printf("Saindo do jogo...\n");
+            break;
+        }
+
+        char rowChar;
+        int colNum;
+        if (cmd == 'R' || cmd == 'F') {
+            if (scanf(" %c %d", &rowChar, &colNum) != 2) {
+                clear_input_buffer();
+                printf("Entrada invalida. Tente novamente.\n");
+                continue;
+            }
+            clear_input_buffer();
+
+            int r = toupper(rowChar) - 'A';
+            int c = colNum - 1;
+            if (r < 0 || r >= L || c < 0 || c >= C) {
+                printf("Posição fora do tabuleiro. Linhas: A-%c, Colunas: 1-%d\n", 'A' + L - 1, C);
+                continue;
+            }
+
+            if (cmd == 'F') {
+                if (board[r][c].state == HIDDEN) {
+                    board[r][c].state = FLAGGED;
+                    printf("Bandeira colocada em %c%d\n", 'A' + r, c+1);
+                } else if (board[r][c].state == FLAGGED) {
+                    board[r][c].state = HIDDEN;
+                    printf("Bandeira removida em %c%d\n", 'A' + r, c+1);
+                } else {
+                    printf("Não é possível marcar uma célula já revelada.\n");
+                }
+            } else { // Reveal
+                int res = reveal_cell(board, L, C, r, c);
+                if (res == -1) {
+                    // perdeu
+                    printf("\nBOOM! Você acertou uma mina em %c%d. Fim de jogo.\n\n", 'A' + r, c+1);
+                    print_board(board, L, C, 1); // mostrar tudo
+                    game_over = 1;
+                    break;
+                }
+                if (check_win(board, L, C, mines)) {
+                    printf("\nParabéns! Você revelou todas as células sem minas. Vitória!\n\n");
+                    print_board(board, L, C, 1);
+                    game_over = 1;
+                    break;
+                }
+            }
+        } else {
+            clear_input_buffer();
+            printf("Comando desconhecido.\n");
+        }
+    }
+
+    printf("Obrigado por jogar!\n");
+    return 0;
+}
